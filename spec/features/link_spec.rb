@@ -2,7 +2,7 @@
 
 feature 'User can visit homepage and see list of links' do
   scenario 'visits webpage, expects to have content' do
-    visit '/'
+    visit '/links'
     expect(page).to have_content("My Bookmarks!")
   end
 

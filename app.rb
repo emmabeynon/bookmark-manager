@@ -1,13 +1,11 @@
 require 'sinatra/base'
 require_relative 'models/link'
 
-class MyApp < Sinatra::Base
-  get '/' do
-    'My Bookmarks!'
-  end
+class Bookmarks < Sinatra::Base
 
   get '/links' do
-    erb(:view)
+    @links = Link.all
+    erb(:'links/index')
   end
 
   # start the server if ruby file executed directly
