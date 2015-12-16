@@ -5,7 +5,9 @@
     <li>
       Title: <%= link.title %><br>
       URL:   <a href="<%= link.url %>"><%= link.url %></a><br>
-      Tags:  <%= (link.tags.first || Tag.create(name: "No Tags")).name %><br><br>
+      Tags:  <% tags_array = link.tags.map {|tag| tag.name} %>
+      <%= "#{tags_array.join(', ')}" %>
+      <br><br>
     </li>
   <% end %>
 </ul>
@@ -13,3 +15,5 @@
 <form action='/links/new'>
   <input type='submit' value='Add bookmark!'>
 </form>
+
+ <!-- || Tag.create(name: "No Tags")).name -->
