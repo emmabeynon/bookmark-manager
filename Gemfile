@@ -8,6 +8,7 @@ gem 'rspec-sinatra'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
 gem 'byebug'
+gem 'rake'
 
 group :test do
   gem 'capybara'
