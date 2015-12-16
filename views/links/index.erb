@@ -5,7 +5,7 @@
     <li>
       Title: <%= link.title %><br>
       URL:   <a href="<%= link.url %>"><%= link.url %></a><br>
-      Tags:  <%= link.tags %><br><br>
+      Tags:  <%= (link.tags.first || Tag.create(name: "No Tags")).name %><br><br>
     </li>
   <% end %>
 </ul>
