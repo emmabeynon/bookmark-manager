@@ -7,19 +7,26 @@ require 'bcrypt'
 class Bookmarks < Sinatra::Base
 
   enable :sessions
+  set :session_secret, 'double super secret'
+
+  helpers do
+    def current_user
+      @current_user ||= User.get(session[:user_id])
+    end
+  end
 
   get '/' do
     erb :index
   end
 
-  post '/welcome' do
-    $user = User.create(name: params[:name], password: params[:password], email: params[:email])
-    redirect '/welcome'
+  post '/users' do
+    user = User.create(name: params[:name], password: params[:password], email: params[:email])
+    session[:user_id] = user.id
+    redirect '/links'
   end
 
-  get '/welcome' do
-    @user = $user
-    erb :welcome
+  get '/users/new' do
+    erb :'users/new'
   end
 
   get '/links' do
