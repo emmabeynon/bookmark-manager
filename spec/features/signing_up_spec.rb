@@ -22,4 +22,21 @@ feature 'Sign up' do
     expect(current_path).to eq('/users/new')
     expect(page).to have_content 'Password and confirmation password do not match'
   end
+
+  scenario 'user signs up with a blank email address' do
+    visit '/users/new'
+    fill_in :name, with: 'Blah Blah'
+    fill_in :password, with: 'blahblahblah'
+    fill_in :password_confirmation, with: 'blahblahblah'
+    expect{ click_button 'Sign up' }.not_to change(User, :count)
+  end
+
+  scenario 'user signs up with an invalid email address' do
+    visit '/users/new'
+    fill_in :name, with: 'Blah Blah'
+    fill_in :email,    with: 'blah@blah'
+    fill_in :password, with: 'blahblahblah'
+    fill_in :password_confirmation, with: 'blahblahblah'
+    expect{ click_button 'Sign up' }.not_to change(User, :count)
+  end
 end
