@@ -2,8 +2,8 @@
 # So that I can quickly go to web sites I regularly visit
 # I would like to see a list of links on the homepage
 
-feature 'User can visit homepage and see list of links' do
-  scenario 'visits webpage, expects to have content' do
+feature 'List of links' do
+  scenario 'visits webpage and see links' do
     visit '/links'
     expect(page).to have_content("My Bookmarks!")
   end

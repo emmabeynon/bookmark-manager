@@ -2,7 +2,7 @@
 # So that I can organise my links into different categories for ease of search
 # I would like to add tags to the links in my bookmark manager
 
-feature 'Multiple Tagging links' do
+feature 'Adding multiple tags' do
   scenario 'add multiple tags to a new link' do
     visit '/links/new'
     fill_in(:title, with: 'Elf Your self!')

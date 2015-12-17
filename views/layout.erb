@@ -4,6 +4,9 @@
   </head>
 
   <body>
+    <% if flash[:password_error] %>
+      <%= flash[:password_error] %>
+    <% end %>
     <% if current_user %>
      Welcome, <%= current_user.name %>!
     <% end %>
