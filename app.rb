@@ -29,7 +29,7 @@ class Bookmarks < Sinatra::Base
       session[:user_id] = @user.id
       redirect '/links'
     else
-      flash[:password_error] = "Password and confirmation password do not match"
+      flash[:errors] = @user.errors.full_messages
       redirect 'users/new'
     end
   end
