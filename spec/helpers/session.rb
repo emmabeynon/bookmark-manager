@@ -14,6 +14,7 @@ module SessionHelpers
     fill_in :email,    with: 'blah@blah.com'
     fill_in :password, with: 'blahblahblah'
     click_button 'Sign in'
+    expect(current_path).to eq '/links'
   end
 
 end

@@ -2,7 +2,7 @@
 
 ENV['RACK_ENV'] = 'test'
 
-require File.join(File.dirname(__FILE__), '..', 'app.rb')
+require File.join(File.dirname(__FILE__), '..', 'app/app.rb')
 
 require 'capybara'
 require 'capybara/rspec'
@@ -100,6 +100,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+end
+
 require 'database_cleaner'
 
 RSpec.configure do |config|
@@ -126,7 +128,5 @@ require_relative 'helpers/session'
 RSpec.configure do |config|
 
   config.include SessionHelpers
-
-end
 
 end

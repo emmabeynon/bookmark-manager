@@ -2,14 +2,20 @@ ENV['RACK_ENV'] ||= 'development'
 
 require 'sinatra/base'
 require 'sinatra/flash'
+require 'sinatra/partial'
 require_relative 'data_mapper_setup'
 
-class Bookmarks < Sinatra::Base
-  register Sinatra::Flash
-  use Rack::MethodOverride
+require_relative 'controllers/links'
 
+class Bookmarks < Sinatra::Base
   enable :sessions
+  register Sinatra::Flash
+  register Sinatra::Partial
+  use Rack::MethodOverride
   set :session_secret, 'double super secret'
+  set :partial_template_engine, :erb
+
+  enable :partial_underscores
 
   helpers do
     def current_user
@@ -61,23 +67,23 @@ class Bookmarks < Sinatra::Base
     redirect '/links'
   end
 
-  get '/links' do
-    @links = Link.all
-    erb(:'links/index')
-  end
-
-  get '/links/new' do
-    erb(:'links/new')
-  end
-
-  post '/links' do
-    link = Link.new(title: params[:title], url: params[:url])
-    params[:tags].split(', ').each do |tag|
-      link.tags << Tag.create(name: tag)
-    end
-    link.save
-    redirect '/links'
-  end
+  # get '/links' do
+  #   @links = Link.all
+  #   erb(:'links/index')
+  # end
+  #
+  # get '/links/new' do
+  #   erb(:'links/new')
+  # end
+  #
+  # post '/links' do
+  #   link = Link.new(title: params[:title], url: params[:url])
+  #   params[:tags].split(', ').each do |tag|
+  #     link.tags << Tag.create(name: tag)
+  #   end
+  #   link.save
+  #   redirect '/links'
+  # end
 
   get '/tags/:name' do
     tag = Tag.first(name: params[:name])
