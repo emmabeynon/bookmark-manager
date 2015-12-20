@@ -1,27 +1,11 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Bookmark Manager</title>
   </head>
-
   <body>
-    <% if flash[:errors] && !flash[:errors].empty? %>
-      Errors:
-      <ul id='errors'>
-        <% flash[:errors].each do |error| %>
-          <li><%= error %></li>
-        <% end %>
-      </ul>
-    <% end %>
-    <% if current_user %>
-     Welcome, <%= current_user.name %>!
-     <form action="/sessions/" method='post'>
-       <input type="hidden" name='_method' value="delete">
-       <input type="submit" value="Sign out">
-     </form>
-    <% end %>
-    <% if flash[:goodbye] %>
-     <%= flash[:goodbye] %>
-    <% end %>
+    <%= partial :welcome %>
+    <%= partial :flash %>
     <%= yield %>
   </body>
 </html>
