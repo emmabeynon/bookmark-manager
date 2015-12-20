@@ -1,12 +1,13 @@
 class Bookmarks < Sinatra::Base
-  use Rack::MethodOverride
+  set :root, File.dirname(__FILE__)
+  enable :sessions
   register Sinatra::Flash
   register Sinatra::Partial
-
+  use Rack::MethodOverride
+  set :session_secret, 'double super secret'
   set :partial_template_engine, :erb
 
-  enable :sessions
-  set :session_secret, 'double super secret'
+  enable :partial_underscores
 
   helpers do
     def current_user
