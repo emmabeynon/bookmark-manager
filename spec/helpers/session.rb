@@ -17,4 +17,16 @@ module SessionHelpers
     expect(current_path).to eq '/links'
   end
 
+  def click_forgotten_password
+    visit '/sessions/new'
+    click_link 'Forgotten password?'
+  end
+
+  def click_recover_password
+    visit '/users/forgotten-password'
+    fill_in :email,    with: 'blah@blah.com'
+    click_button 'Recover password'
+  end
+
+
 end

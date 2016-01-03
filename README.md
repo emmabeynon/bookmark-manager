@@ -40,7 +40,7 @@ I would like to filter links by tag
 
 Instructions
 ------------
-You can view the original produce here:
+You can view the original app here: http://bookmark-manager-eb.herokuapp.com/users/new
 
 Alternatively, follow these instructions to create your own:
 
@@ -49,12 +49,12 @@ Alternatively, follow these instructions to create your own:
 3. Once installation is complete, run ```bundle```
 4. Create a .env file in your root directory and input ```RACK_ENV=development```.  Make sure you add this file to .gitignore.
 5. Run ```psql``` and create the following databases: ```bookmark_manager_development```, ```bookmark_manager_test```.
-6. To view locally, run ```rackup``` or use your preferred interface. View at: http://localhost:9292.
+6. To view locally, run ```rackup``` or use your preferred interface. View at: http://localhost:9292/user/new
 7. To run on Heroku, create your app by running ```heroku create bookmark-manager-example```. Push to Heroku using ```git push heroku master``` and add the postgresql add-on to your app using this command ```heroku addons:create heroku-postgresql:hobby-dev```.
 
 Approach
 ---------
-To start off the project, I used psql to create a two SQL database (one for development, and one for testing) and employed DataMapper to manipulate it via a Ruby interface.  I created a Link class to create new links which maps to the database using DataMapper.  Then I started to build a modular Sinatra app in order to for the user to create and view links.  The development of the app was test-driven using Capybara, and DatabaseCleaner was used to clear the database between tests to ensure that the outcomes of tests is always reliable.  With users now being able to create and view their links, I developed functionality for them to organise and filter their links using tags.  This involved setting up a many-to-many relationship between the links and tags, and enabling users to add tags when they create their links.  This was later extended to handle adding multiple tags to a link.  
+To start off the project, I used psql to create two SQL databases (one for development, and one for testing) and employed DataMapper to manipulate it via a Ruby interface.  I created a Link class to create new links which maps to the database using DataMapper.  Then I started to build a modular Sinatra app in order to for the user to create and view links.  The development of the app was test-driven using Capybara, and DatabaseCleaner was used to clear the database between tests to ensure that the outcomes of tests is always reliable.  With users now being able to create and view their links, I developed functionality for them to organise and filter their links using tags.  This involved setting up a many-to-many relationship between the links and tags, and enabling users to add tags when they create their links.  This was later extended to handle adding multiple tags to a link.  
 
 Now that a single user could use the bookmark manager, it was time to extend this to multiple users by creating user accounts.  I created a form for user to sign up using their name, email address and a password.  The password is validated against a password confirmation to ensure it is correct, and then stored securely as a salted hash in the database using BCrypt.  If the password and password confirmation do not match, a Sinatra Flash error message appears and the user cannot proceed.  Additionally, if the user provides a blank or incorrectly formatted email address then further error messages appear.  Finally, functionality was added to prevent users from signing up with an already registered email address.
 
