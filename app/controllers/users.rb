@@ -24,10 +24,8 @@ class Bookmarks < Sinatra::Base
   end
 
   post '/users/forgotten-password' do
-    require 'byebug'
     user = User.first(email: params[:email])
     user.generate_token if user
-    byebug
     redirect '/users/recovery-confirmation'
   end
 

@@ -17,7 +17,6 @@ class User
   attr_reader :password
 
   validates_confirmation_of :password, :confirm => :password_confirmation
-  validates_with_method :password
   validates_format_of :email, :as => :email_address
 
   def password=(password)
