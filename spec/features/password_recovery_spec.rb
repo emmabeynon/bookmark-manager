@@ -24,7 +24,6 @@ feature 'Reset password' do
   end
 
   scenario 'User is assigned a reset token when they recover password' do
-    sign_up
     click_forgotten_password
     expect{click_recover_password}.to change{User.first.password_token}
   end
@@ -37,7 +36,7 @@ feature 'Reset password' do
 
   scenario 'submits token and password cannot be reset if invalid' do
     click_recover_password
-    Timecop.travel(60 * 60 * 60) do
+    Timecop.travel(60 * 60 + 1) do
       visit("/users/reset-password?token=#{user.password_token}")
       expect(page).to have_content "Your token is invalid."
     end
@@ -49,7 +48,25 @@ feature 'Reset password' do
     expect(page).to have_content "Please enter a new password"
   end
 
-  xscenario 'signs in with new password' do
+  scenario 'confirms that password has been reset' do
+    click_recover_password
+    visit("/users/reset-password?token=#{user.password_token}")
+    fill_in :password, with: 'newpassword'
+    fill_in :password_confirmation, with: 'newpassword'
+    click_button 'Submit'
+    expect(page).to have_content "Your password has been reset."
+  end
 
+  scenario 'signs in with new password' do
+    click_recover_password
+    visit("/users/reset-password?token=#{user.password_token}")
+    fill_in :password, with: 'newpassword'
+    fill_in :password_confirmation, with: 'newpassword'
+    click_button 'Submit'
+    visit("/sessions/new")
+    fill_in :email,    with: 'blah@blah.com'
+    fill_in :password, with: 'newpassword'
+    click_button 'Sign in'
+    expect(page).to have_content 'Welcome, Blah Blah'
   end
 end

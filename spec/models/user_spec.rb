@@ -16,12 +16,13 @@ describe User do
     end
 
     describe '#find_by_valid_token' do
-      xit 'finds a user with a valid token' do
+      it 'finds a user with a valid token' do
         user.generate_token
         expect(User.find_by_valid_token(user.password_token)).to eq user
       end
 
-      xit "can't find a user with token over 1 hour old" do
+      it "can't find a user with token over 1 hour old" do
+        user.generate_token
         Timecop.travel(60*60+1) do
           expect(User.find_by_valid_token(user.password_token)).to eq nil
         end

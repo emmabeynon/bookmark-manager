@@ -35,12 +35,24 @@ class Bookmarks < Sinatra::Base
 
   get '/users/reset-password' do
     @user = User.find_by_valid_token(params[:token])
-    if(@user)
-      "Please enter a new password"
+    if @user
+      erb :'/users/reset-password'
     else
       "Your token is invalid."
     end
-    # erb :'/users/reset-password'
+  end
+
+  patch '/users' do
+    # require 'byebug'
+    @user = User.find_by_valid_token(params[:token])
+    # byebug
+    @user.update(password: params[:password],
+                password_confirmation: params[:password_confirmation])
+    redirect '/users/reset-confirmation'
+  end
+
+  get '/users/reset-confirmation' do
+    erb :'/users/reset-confirmation'
   end
 
 end

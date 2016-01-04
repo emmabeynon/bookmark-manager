@@ -17,6 +17,10 @@ module SessionHelpers
     expect(current_path).to eq '/links'
   end
 
+  def sign_out
+    click_button 'Sign out'
+  end
+
   def click_forgotten_password
     visit '/sessions/new'
     click_link 'Forgotten password?'
